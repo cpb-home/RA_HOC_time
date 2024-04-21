@@ -1,3 +1,33 @@
+import { IVideo } from "../Video/Video";
+
+const DateTimePretty = (Component) => {
+
+  return(props: IVideo) => {
+    const currentDate = new Date();
+
+    const updatedDate = new Date(props.date);
+
+    // @ts-expect-error because the date difference
+    const hours = parseInt((currentDate - updatedDate)/1000)/60/60;
+    let result: string;
+    if (hours < 1) {
+      result = `${Math.round(hours*60)} мин. назад`;
+    } else if (hours < 5) {
+      result = `${Math.round(hours)} час. назад`;
+    } else {
+      result = `${Math.round(hours/24)} дн. назад`;
+    }
+
+    return (
+      <Component date={result} />
+    )
+  }
+}
+
+export default DateTimePretty
+
+
+/*
 import DateTime, { IDateTime } from "../DateTime/DateTime";
 
 const DateTimePretty = (date: IDateTime) => {
@@ -24,3 +54,5 @@ const DateTimePretty = (date: IDateTime) => {
 }
 
 export default DateTimePretty
+
+*/
